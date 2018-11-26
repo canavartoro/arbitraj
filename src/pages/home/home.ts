@@ -64,7 +64,13 @@ export class HomePage {
     ];
   }
 
+  onCancel(e: any) {
+    console.log(e);
+  }
+
   getItems(q: string) {
+    console.log(q);
+    //(ionChange)="getItems($event.value)"
     // Reset items back to all of the items
     this.initializeItems();
 
