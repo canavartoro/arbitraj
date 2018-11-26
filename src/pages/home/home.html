@@ -8,14 +8,28 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <form>
+    <ion-searchbar [(ngModel)]="value" (ionChange)="getItems($event.value)" name="search"></ion-searchbar>
+  </form>
+  <ion-list>
+    <button ion-item *ngFor="let item of items" (click)="showDetail(item)" class="e2eSearchbarNavItem">
+      {{ item }}
+    </button>
+  </ion-list>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <ion-item>
+    <ion-icon name="logo-twitter" item-start>
+      <ion-badge item-end>260k</ion-badge>
+    </ion-icon>
+    Followers
+  </ion-item>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <button ion-button icon-only (click)="cart()">
+    <ion-icon name="cart"> <ion-badge item-end>260k</ion-badge></ion-icon>
+</button>
+
 </ion-content>
+
 <ion-footer>
   <ion-toolbar>
     <ion-title>v1.0.0</ion-title>
