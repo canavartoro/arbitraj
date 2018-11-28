@@ -5,18 +5,29 @@
     </button>
     <ion-title>Home</ion-title>
   </ion-navbar>
+
+  <ion-header>
+    <ion-toolbar color='primary'>
+      <ion-buttons start>
+        <button ion-button icon-only (click)='onCancel()'>
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-searchbar [(ngModel)]="value" 
+      (input)="onSearchInput()" 
+      [showCancelButton]="true"
+      (ionCancel)="onCancel($event)"></ion-searchbar>
+      <ion-buttons end>
+        <button ion-button icon-only (click)='onDismiss()'>
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
 </ion-header>
 
 <ion-content padding>
-  <form>
-    <ion-searchbar
-  [(ngModel)]="value"
-  [showCancelButton]="true"
-  (ionInput)="getItems($event.data)"
-  (ionCancel)="onCancel($event)"
-  name="search">
-</ion-searchbar>
-  </form>
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="showDetail(item)" class="e2eSearchbarNavItem">
       {{ item }}

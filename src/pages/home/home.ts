@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
+import { WebUtility } from '../../services/web-util';
+import { Utilities } from '../../util/utilities';
 
 @Component({
   selector: 'page-home',
@@ -10,8 +12,10 @@ export class HomePage {
   items: string[];
   value = '';
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
-    this.initializeItems();
+  constructor(public navCtrl: NavController,
+    private webUtil: WebUtility, 
+    private util: Utilities,
+    public modalCtrl: ModalController) {
   }
 
   cart(){
@@ -22,64 +26,39 @@ export class HomePage {
     this.navCtrl.push('ListPage', {city: item});
   }
 
-  initializeItems() {
-    this.items = [
-      'Amsterdam',
-      'Bogota',
-      'Buenos Aires',
-      'Cairo',
-      'Dhaka',
-      'Edinburgh',
-      'Geneva',
-      'Genoa',
-      'Glasglow',
-      'Hanoi',
-      'Hong Kong',
-      'Islamabad',
-      'Istanbul',
-      'Jakarta',
-      'Kiel',
-      'Kyoto',
-      'Le Havre',
-      'Lebanon',
-      'Lhasa',
-      'Lima',
-      'London',
-      'Los Angeles',
-      'Madrid',
-      'Manila',
-      'New York',
-      'Olympia',
-      'Oslo',
-      'Panama City',
-      'Peking',
-      'Philadelphia',
-      'San Francisco',
-      'Seoul',
-      'Taipeh',
-      'Tel Aviv',
-      'Tokio',
-      'Uelzen',
-      'Washington'
-    ];
-  }
+  
 
   onCancel(e: any) {
     console.log(e);
   }
 
-  getItems(q: string) {
+  onDismiss() {
+    console.log(this.value);
+    if (!this.value || this.value.trim() === '') {
+      return;
+    }
+    this.webUtil.doGet('product&asin=' + this.value).subscribe(data => {
+      console.log(data);
+    }, err => {
+      console.error(err);
+      this.util.showAlert(err);
+    });
+  }
+
+  onSearchInput(q: string) {
     console.log(q);
     //(ionChange)="getItems($event.value)"
     // Reset items back to all of the items
-    this.initializeItems();
+    
+
+    
 
     // if the value is an empty string don't filter the items
-    if (!q || q.trim() === '') {
+    /*if (!q || q.trim() === '') {
       return;
-    }
+    }*/
 
-    this.items = this.items.filter((v) => v.toLowerCase().indexOf(q.toLowerCase()) > -1);
+    //this.items = this.items.filter((v) => v.toLowerCase().indexOf(q.toLowerCase()) > -1);
   }
 
   openModal() {
