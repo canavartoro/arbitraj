@@ -15,7 +15,7 @@
       </ion-buttons>
       <ion-searchbar [(ngModel)]="value" 
       (input)="onSearchInput()" 
-      [showCancelButton]="true"
+      showCancelButton="false"
       (ionCancel)="onCancel($event)"></ion-searchbar>
       <ion-buttons end>
         <button ion-button icon-only (click)='onDismiss()'>
@@ -28,13 +28,37 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="showDetail(item)" class="e2eSearchbarNavItem">
-      {{ item }}
-    </button>
-  </ion-list>
+  <ion-card no-padding *ngFor="let item of items; let j = index">
+    <ion-card-content>
+        <p>
+            {{ item.Name }}
+        </p>
+    </ion-card-content>
+    <ion-row no-padding>
+        <ion-col text-left>
+            <button ion-button clear icon-left class="like">
+                <ion-icon name='heart'></ion-icon>
+                {{ item.id }}
+                <span>Id</span>
+            </button>
+        </ion-col>
+        <ion-col text-center>
+            <button ion-button clear icon-left (click)="setProduct(item.id)" class="comment">
+                <ion-icon name='chatboxes'></ion-icon>
+                {{ item.Price }}
+                <span>Fiyat</span>
+            </button>
+        </ion-col>
+        <ion-col text-right>
+            <button ion-button clear icon-left icon-only class="delete">
+                <ion-icon name='trash'></ion-icon>
+            </button>
+        </ion-col>
+    </ion-row>
 
-  <ion-item>
+</ion-card>
+
+  <!--<ion-item>
     <ion-icon name="logo-twitter" item-start>
       <ion-badge item-end>260k</ion-badge>
     </ion-icon>
@@ -43,7 +67,7 @@
 
   <button ion-button icon-only (click)="cart()">
     <ion-icon name="cart"> <ion-badge item-end>260k</ion-badge></ion-icon>
-</button>
+</button>-->
 
 </ion-content>
 

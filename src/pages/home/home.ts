@@ -9,7 +9,7 @@ import { Utilities } from '../../util/utilities';
 })
 export class HomePage {
 
-  items: string[];
+  items:any[];
   value = '';
 
   constructor(public navCtrl: NavController,
@@ -18,18 +18,14 @@ export class HomePage {
     public modalCtrl: ModalController) {
   }
 
-  cart(){
-    
-  }
-
-  showDetail(item: any) {
-    this.navCtrl.push('ListPage', {city: item});
+  setProduct(id: number) {
+    //this.navCtrl.push('ListPage', {city: item});
   }
 
   
 
   onCancel(e: any) {
-    console.log(e);
+    this.value = '';
   }
 
   onDismiss() {
@@ -39,6 +35,7 @@ export class HomePage {
     }
     this.webUtil.doGet('product&asin=' + this.value).subscribe(data => {
       console.log(data);
+      this.items = data;
     }, err => {
       console.error(err);
       this.util.showAlert(err);
